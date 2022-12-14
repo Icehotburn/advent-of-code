@@ -3,13 +3,20 @@
   "version": "1.0.0",
   "description": "My Javascript solutions for [Advent of Code 2022](https://adventofcode.com/2022).",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "solve": "func() { node ./${1:-day-01}/index.js; }; func",
-    "test": "func() { npm test ./${1:-day-01}/test.js; }; func"
+    "solve": "func() { node --loader ts-node/esm ./${1:-day-01}/index.ts; }; func",
+    "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "jest": "^29.3.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.2.4",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
   }
 }
