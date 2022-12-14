@@ -1,2 +1,7 @@
-# advent-of-code
-My Javascript solutions for Advent of Code 2022.
+# 🎄❄☃️ advent-of-code 🎄❄☃️
+
+My solutions for [Advent of Code](https://adventofcode.com).
+
+## Solutions
+
+- 2022 in Javascript
