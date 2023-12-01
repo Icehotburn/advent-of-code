@@ -1,3 +1,5 @@
+# Note: this will not work because the solutions were never added
+
 # 🎄❄☃️ advent-of-code 🎄❄☃️
 
 My Javascript solutions for [Advent of Code 2022](https://adventofcode.com/2022). The structure for the project was heavily inspired by [zsoltime/advent-of-code](https://github.com/zsoltime/advent-of-code).
