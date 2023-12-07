@@ -1,33 +1,93 @@
 package main
 
 import (
-	"bufio"
+	"2023/utils"
 	"errors"
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func main() {
-	//Read input file
-	input, err := os.Open("input.txt")
+	//Open input file
+	inputFile, err := os.Open("input.txt")
 	if err != nil {
 		panic(err)
 	}
 
-	sc := bufio.NewScanner(input)
+	// Close Input File
+	defer func() {
+		err = inputFile.Close()
+		if err != nil {
+			panic(err)
+		}
+	}()
 
+	input := utils.ReadInputFile(inputFile)
+
+	// Print the answer
+	fmt.Println("Part 1 answer: ", Part1(input))
+	fmt.Println("Part 2 answer: ", Part2(input))
+
+}
+
+func Part1(input string) int {
 	// Sum of all the calibration values
 	calibrationSum := 0
 
-	for sc.Scan() {
-		line := sc.Text()
+	lines := strings.Split(input, "\n")
+
+	for _, line := range lines {
+
+		// Skip the last line
+		if line == "" {
+			continue
+		}
 
 		/*
 			Potential optimization:
 			Only store two digits per line since only the first and last digits are needed
 		*/
 		var digits []int
+		for _, char := range line {
+			digit, err := strconv.Atoi(string(char))
+
+			if err == nil {
+				digits = append(digits, digit)
+			}
+		}
+
+		first := digits[0]
+		last := digits[len(digits)-1]
+
+		calibration := first*10 + last
+
+		calibrationSum += calibration
+	}
+
+	return calibrationSum
+}
+
+func Part2(input string) int {
+
+	// Sum of all the calibration values
+	calibrationSum := 0
+
+	lines := strings.Split(input, "\n")
+
+	for _, line := range lines {
+		/*
+			Potential optimization:
+			Only store two digits per line since only the first and last digits are needed
+		*/
+		var digits []int
+
+		// Skip the last line
+		if line == "" {
+			continue
+		}
+
 		for pos, char := range line {
 			/*
 				Potential optimization:
@@ -51,7 +111,7 @@ func main() {
 			for _, c := range line[pos:] {
 				word = word + string(c)
 
-				digit, err = convertWordToDigit(word)
+				digit, err = convertWordToInt(word)
 
 				if err == nil {
 					digits = append(digits, digit)
@@ -67,18 +127,10 @@ func main() {
 		calibrationSum += calibration
 	}
 
-	// Print the answer
-	fmt.Println(calibrationSum)
-
-	// Close Input File
-	err = input.Close()
-	if err != nil {
-		panic(err)
-	}
-
+	return calibrationSum
 }
 
-func convertWordToDigit(s string) (int, error) {
+func convertWordToInt(s string) (int, error) {
 	switch s {
 	case "zero":
 		return 0, nil
