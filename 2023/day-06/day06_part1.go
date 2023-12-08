@@ -1,10 +1,10 @@
 package main
 
 import (
+	"2023/utils"
 	"bufio"
 	"fmt"
 	"os"
-	"strconv"
 	"strings"
 )
 
@@ -74,11 +74,7 @@ func parseNumbers(s string) []int {
 
 	for _, value := range values {
 		if value != "" {
-			num, err := strconv.Atoi(value)
-			if err != nil {
-				panic(err)
-			}
-			result = append(result, num)
+			result = append(result, utils.ParseIntOrPanic(value))
 		}
 	}
 

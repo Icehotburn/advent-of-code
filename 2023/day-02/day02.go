@@ -4,7 +4,6 @@ import (
 	"2023/utils"
 	"fmt"
 	"os"
-	"strconv"
 	"strings"
 )
 
@@ -48,11 +47,8 @@ func Part1(bagContents map[string]int, input string) int {
 		split := strings.Split(line, ":")
 
 		// get the game id
-		gameInfo := split[0]                      // i.e "Game 1"
-		gameId, err := strconv.Atoi(gameInfo[5:]) // i.e "1"
-		if err != nil {
-			panic(err)
-		}
+		gameInfo := split[0]                          // i.e "Game 1"
+		gameId := utils.ParseIntOrPanic(gameInfo[5:]) // i.e "1"
 
 		game := split[1] // i.e " 18 red, 8 green, 7 blue; 15 red, 4 blue, 1 green; 2 green, 17 red, 6 blue; 5 green, 1 blue, 11 red; 18 red, 1 green, 14 blue; 8 blue"
 
@@ -82,12 +78,9 @@ func isValidGame(game string, contents map[string]int) bool {
 		// check that the count/color value is less than the input map
 		values := strings.Split(turn, ",") // i.e "[" 18 red", " 8 green", " 7 blue"]
 		for _, value := range values {
-			parsed := strings.Split(value[1:], " ")  // i.e ["18", "red"]
-			color := parsed[1]                       // i.e "red"
-			quantity, err := strconv.Atoi(parsed[0]) // i.e "18"
-			if err != nil {
-				panic(err)
-			}
+			parsed := strings.Split(value[1:], " ")      // i.e ["18", "red"]
+			color := parsed[1]                           // i.e "red"
+			quantity := utils.ParseIntOrPanic(parsed[0]) // i.e "18"
 
 			if quantity > contents[color] {
 				return false
@@ -135,12 +128,9 @@ func minCubes(game string) map[string]int {
 	for _, turn := range turns {
 		values := strings.Split(turn, ",") // i.e "[" 18 red", " 8 green", " 7 blue"]
 		for _, value := range values {
-			parsed := strings.Split(value[1:], " ")  // i.e ["18", "red"]
-			color := parsed[1]                       // i.e "red"
-			quantity, err := strconv.Atoi(parsed[0]) // i.e "18"
-			if err != nil {
-				panic(err)
-			}
+			parsed := strings.Split(value[1:], " ")      // i.e ["18", "red"]
+			color := parsed[1]                           // i.e "red"
+			quantity := utils.ParseIntOrPanic(parsed[0]) // i.e "18"
 
 			if quantity > result[color] {
 				result[color] = quantity

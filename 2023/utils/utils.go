@@ -3,6 +3,7 @@ package utils
 import (
 	"bufio"
 	"os"
+	"strconv"
 )
 
 func ReadInputFile(file *os.File) string {
@@ -15,4 +16,12 @@ func ReadInputFile(file *os.File) string {
 	}
 
 	return input
+}
+
+func ParseIntOrPanic(s string) int {
+	res, err := strconv.Atoi(s)
+	if err != nil {
+		panic(err)
+	}
+	return res
 }
