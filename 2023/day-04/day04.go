@@ -91,25 +91,10 @@ func parseLineToCard(line string) Card {
 
 	game := split[1] // i.e " 41 48 83 86 17 | 83 86  6 31 17  9 48 53"
 	gameInfo := strings.Split(game, "|")
-	winningNumbers := parseNumbersFromString(gameInfo[0]) // i.e [41, 48, 83, 86, 17]
-	cardNumbers := parseNumbersFromString(gameInfo[1])    // i.e [83, 86,  6, 31, 17,  9, 48, 53]"
+	winningNumbers := utils.ParseNumbersFromString(gameInfo[0], " ") // i.e [41, 48, 83, 86, 17]
+	cardNumbers := utils.ParseNumbersFromString(gameInfo[1], " ")    // i.e [83, 86,  6, 31, 17,  9, 48, 53]"
 
 	return Card{1, winningNumbers, cardNumbers}
-}
-
-func parseNumbersFromString(s string) []int {
-	s = strings.TrimSpace(s)
-	values := strings.Split(s, " ")
-
-	var result []int
-
-	for _, value := range values {
-		if value != "" {
-			result = append(result, utils.ParseIntOrPanic(value))
-		}
-	}
-
-	return result
 }
 
 func getWinningNumbers(winningNumbers []int, cardNumbers []int) []int {

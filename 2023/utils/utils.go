@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func ReadInputFile(file *os.File) string {
@@ -33,4 +34,19 @@ func Contains[T comparable](arr []T, val T) bool {
 		}
 	}
 	return false
+}
+
+func ParseNumbersFromString(s string, delimiter string) []int {
+	s = strings.TrimSpace(s)
+	values := strings.Split(s, delimiter)
+
+	var result []int
+
+	for _, value := range values {
+		if value != "" {
+			result = append(result, ParseIntOrPanic(value))
+		}
+	}
+
+	return result
 }
